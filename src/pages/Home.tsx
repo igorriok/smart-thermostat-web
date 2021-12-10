@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import lessImg from "../images/expand_more_black_48dp.svg";
 import moreImg from "../images/expand_less_black_48dp.svg";
+import "./Home.css";
 
 
 const baseUrl = "http://raspberrypi.local:30578";
@@ -115,6 +116,10 @@ export default function HomePage() {
 	return (
 		<div className="Page">
 
+			<h2>
+				Smart thermostat
+			</h2>
+
 			<div id="houseInfoContainer">
 
 				<p>
@@ -142,16 +147,19 @@ export default function HomePage() {
 			</div>
 
 			<div id="themperatureSetContainer">
+				<h4>
+					Wanted themperature:
+				</h4>
 				<button
 					onClick={() => modifyTemperature(1)}
 				>
 					<img src={moreImg} alt="less"/>
 				</button>
-				<h4>
+				<p>
 					{
-						"Wanted themperature: " + temperatureSet
+						temperatureSet
 					}
-				</h4>
+				</p>
 				<button
 					onClick={() => modifyTemperature(-1)}
 				>
@@ -159,7 +167,7 @@ export default function HomePage() {
 				</button>
 			</div>
 
-			<div>
+			<div id="heatStatusContainer">
 				<h4>
 					{
 						"Heat is: " + (heat ? "ON" : "OFF")

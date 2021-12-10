@@ -5,10 +5,25 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 16pt;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+html {
+  height: 100%;
+  /*overflow: auto;*/
+}
+
+body {
+  /*min-height: 100%;*/
+  height: 100%;
+  /*overflow-y: auto;*/
+}
+
+#root {
+  height: 100%;
+  /*overflow: auto;*/
 }
