@@ -68,3 +68,42 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+### nginx config
+sudo mkdir -p /var/www/raspberrypi.local/html
+sudo chown -R $USER:$USER /var/www/raspberrypi.local/html
+sudo chmod -R 755 /var/www/raspberrypi.local
+sudo vim /etc/nginx/sites-available/raspberrypi.local
+
+server {
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/raspberrypi.local/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name raspberrypi.local www.raspberrypi.local;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+
+sudo ln -s /etc/nginx/sites-available/raspberrypi.local /etc/nginx/sites-enabled/
+sudo vim /etc/nginx/nginx.conf
+...
+http {
+    ...
+    server_names_hash_bucket_size 64;
+    ...
+}
+...
+
+sudo nginx -t
+sudo nginx -s reload
+sudo systemctl restart nginx
+
+scp -r /home/smart-thermostat-web/build/* pi@192.168.0.177:/var/www/raspberrypi.local/html
+
+
