@@ -7,6 +7,7 @@ const baseUrl = "http://raspberrypi.local:30578";
 
 export default function HomePage() {
 	const [houseTemp, setHouseTemp] = useState(0);
+	const [heat, setHeat] = useState<boolean>(false);
 	const [temperatureSet, setTemperatureSet] = useState(0);
 	const [humidity, setHumidity] = useState(0);
 	const [pressure, setPressure] = useState(0);
@@ -33,9 +34,10 @@ export default function HomePage() {
 			},
 			)
 			.then((data) => {
-				// console.log(data);
+				console.log(data);
 				
 				setTemperatureSet(data.temperature);
+				setHeat(data.heat);
 			})
 			.catch((error) => {
 				console.error("Could not get data from server");
@@ -48,7 +50,7 @@ export default function HomePage() {
 	}, []);
 
 	const getData = async () => {
-		console.log("get data")
+		// console.log("get data")
 
 		await fetch(baseUrl + "/data",
 			{
@@ -66,7 +68,7 @@ export default function HomePage() {
 			},
 			)
 			.then((data) => {
-				console.log(data);
+				// console.log(data);
 				
 				setHouseTemp(data.temperature.toFixed(1));
 				setPressure(data.pressure.toFixed(2));
@@ -155,6 +157,14 @@ export default function HomePage() {
 				>
 					<img src={lessImg} alt="less"/>
 				</button>
+			</div>
+
+			<div>
+				<h4>
+					{
+						"Heat is: " + (heat ? "ON" : "OFF")
+					}
+				</h4>
 			</div>
 		</div>
 	);
