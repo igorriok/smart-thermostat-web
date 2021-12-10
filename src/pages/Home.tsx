@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import lessImg from '../images/expand_more_black_48dp.svg';
-import moreImg from '../images/expand_less_black_48dp.svg';
+import React, {useEffect, useState} from "react";
+import lessImg from "../images/expand_more_black_48dp.svg";
+import moreImg from "../images/expand_less_black_48dp.svg";
 
 
 const baseUrl = "http://raspberrypi.local:30578";
