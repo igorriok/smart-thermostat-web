@@ -112,6 +112,24 @@ export default function HomePage() {
 			});
 	}
 
+	const switchHeat = async (state: string) => {
+		fetch(baseUrl + "/settings/heat",
+			{
+				method: "POST", // *GET, POST, PUT, DELETE, etc.
+				mode: "cors", // no-cors, *cors, same-origin
+				cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+				credentials: "same-origin", // include, *same-origin, omit
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({state: state}),
+			})
+			.catch((error) => {
+				console.error("Could not get data from server");
+				console.error(error);
+			});
+	}
+
 
 	return (
 		<div className="Page">
@@ -173,6 +191,21 @@ export default function HomePage() {
 						"Heat is: " + (heat ? "ON" : "OFF")
 					}
 				</h4>
+			</div>
+
+			<div id="testButtonsContainer">
+				<button
+					className="heatButton"
+					onClick={() => switchHeat("on")}
+				>
+					ON
+				</button>
+				<button
+					className="heatButton"
+					onClick={() => switchHeat("off")}
+				>
+					OFF
+				</button>
 			</div>
 		</div>
 	);
