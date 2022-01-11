@@ -1,10 +1,11 @@
 import "./App.css";
 import React from "react";
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/Home";
 
 
 function App() {
+
 	return (
 		<div className="App">
 			<Router>
@@ -18,6 +19,7 @@ function App() {
 			</Router>
 		</div>
 	);
+
 }
 
 export default App;

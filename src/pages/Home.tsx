@@ -1,24 +1,30 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import lessImg from "../images/expand_more_black_48dp.svg";
 import moreImg from "../images/expand_less_black_48dp.svg";
 import "./Home.css";
+import Switch from "../elements/Switch";
 
 
 const baseUrl = "http://raspberrypi.local:30578";
 
 export default function HomePage() {
+
 	const [houseTemp, setHouseTemp] = useState(0);
 	const [heat, setHeat] = useState<boolean>(false);
 	const [temperatureSet, setTemperatureSet] = useState(0);
 	const [humidity, setHumidity] = useState(0);
 	const [pressure, setPressure] = useState(0);
+	const [manual, setManual] = useState(false);
 
 
 	useEffect(() => {
+
 		setInterval(getTemperature, 5000);
+
 	}, []);
 
 	const getTemperature = async () => {
+
 		await fetch(baseUrl,
 			{
 				method: "GET", // *GET, POST, PUT, DELETE, etc.
@@ -30,27 +36,37 @@ export default function HomePage() {
 				},
 			})
 			.then((response) => {
+
 				// console.log(response);
 				return response.json();
+
 			},
 			)
 			.then((data) => {
-				console.log(data);
+
+				// console.log(data);
 				
 				setTemperatureSet(data.temperature);
 				setHeat(data.heat);
+
 			})
 			.catch((error) => {
+
 				console.error("Could not get data from server");
 				console.error(error);
+
 			});
+
 	}
 	
 	useEffect(() => {
+
 		setInterval(getData, 3000);
+
 	}, []);
 
 	const getData = async () => {
+
 		// console.log("get data")
 
 		await fetch(baseUrl + "/data",
@@ -64,25 +80,35 @@ export default function HomePage() {
 				},
 			})
 			.then((response) => {
+
 				// console.log(response);
 				return response.json();
+
 			},
 			)
 			.then((data) => {
+
 				// console.log(data);
 				
 				setHouseTemp(data.temperature.toFixed(1));
 				setPressure(data.pressure.toFixed(2));
 				setHumidity(data.humidity.toFixed(2));
+
 			})
 			.catch((error) => {
+
 				console.error("Could not get data from server");
 				console.error(error);
+
 			});
+
 	}
 
 	const modifyTemperature = async (modifier: number) => {
+
 		const newTeperature = temperatureSet + modifier;
+
+		setTemperatureSet(newTeperature);
 
 		await fetch(baseUrl + "/settings",
 			{
@@ -94,24 +120,32 @@ export default function HomePage() {
 					"Content-Type": "application/json",
 					"Accept": "application/json",
 				},
-				body: JSON.stringify({temperatureSet: newTeperature}),
+				body: JSON.stringify({ temperatureSet: newTeperature }),
 			})
 			.then((response) => {
+
 				// console.log(response);
 				return response.json();
+
 			},
 			)
 			.then((data) => {
+
 				// console.log(data);
 				
 				setTemperatureSet(data.temperatureSet);
+
 			})
 			.catch((error) => {
+
 				console.error("Could not get data from server");
 				console.error(error);
+
 			});
+
 	}
 
+	/*
 	const switchHeat = async (state: string) => {
 		fetch(baseUrl + "/settings/heat",
 			{
@@ -129,6 +163,7 @@ export default function HomePage() {
 				console.error(error);
 			});
 	}
+	*/
 
 
 	return (
@@ -164,6 +199,13 @@ export default function HomePage() {
 
 			</div>
 
+			<div>
+				<h4>
+					Manual switch:
+				</h4>
+				<Switch value={manual} setValue={setManual} />
+			</div>
+
 			<div id="themperatureSetContainer">
 				<h4>
 					Wanted themperature:
@@ -193,20 +235,25 @@ export default function HomePage() {
 				</h4>
 			</div>
 
-			<div id="testButtonsContainer">
-				<button
-					className="heatButton"
-					onClick={() => switchHeat("on")}
-				>
-					ON
-				</button>
-				<button
-					className="heatButton"
-					onClick={() => switchHeat("off")}
-				>
-					OFF
-				</button>
-			</div>
+			{/* Buttons for testing signals  */}
+			{/*
+				<div id="testButtonsContainer">
+					<button
+						className="heatButton"
+						onClick={() => switchHeat("on")}
+					>
+						ON
+					</button>
+					<button
+						className="heatButton"
+						onClick={() => switchHeat("off")}
+					>
+						OFF
+					</button>
+				</div>
+			*/}
+
 		</div>
 	);
+
 }
