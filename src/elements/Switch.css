@@ -35,6 +35,14 @@
     transition: .4s;
 }
 
+.disabled > .slider {
+    background-color: rgb(140, 140, 140);
+}
+
+.disabled > .slider:before {
+    background-color: gray;
+}
+
 input:checked + .slider {
     background-color: #2196F3;
 }

@@ -15,8 +15,14 @@ export default function Switch(props: SwitchProps) {
 
 	const { value, setValue, disabled } = props;
 
+	let classes: string = "switch";
+
+	if (disabled) {
+		classes = classes.concat(" disabled");
+	}
+
 	return (
-		<label className="switch">
+		<label className={classes}>
 			<input
 				type="checkbox"
 				checked={value}
