@@ -39,7 +39,7 @@
       "no-mixed-spaces-and-tabs": "warn",
       "semi": "off",
       "new-cap": "warn",
-      "padded-blocks": [ "error", { "blocks": "always" } ],
+      "padded-blocks": [ "off", { "blocks": "always" } ],
       "object-curly-spacing": ["error", "always"]
     }
   }

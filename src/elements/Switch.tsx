@@ -8,18 +8,20 @@ interface setValueFunc {
 interface SwitchProps {
 	value: boolean;
 	setValue: setValueFunc;
+	disabled?: boolean;
 }
 
 export default function Switch(props: SwitchProps) {
 
-	const { value, setValue } = props;
+	const { value, setValue, disabled } = props;
 
 	return (
 		<label className="switch">
 			<input
 				type="checkbox"
 				checked={value}
-				onClick={ () => setValue(!value) }
+				onChange={ () => setValue(!value) }
+				disabled={disabled}
 			/>
 			<span className="slider round" />
 		</label>

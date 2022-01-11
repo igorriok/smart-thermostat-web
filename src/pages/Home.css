@@ -1,4 +1,5 @@
 
+
 #themperatureSetContainer {
     border: 1px solid;
     padding: 8pt;
@@ -7,4 +8,12 @@
 
 .heatButton {
     margin: 4pt;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
 }
